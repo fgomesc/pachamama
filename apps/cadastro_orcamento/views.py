@@ -40,6 +40,8 @@ class CadastroOrcamentoCreate(LoginRequiredMixin, CreateView):
         return kwargs
 
 
+#Inclusão Rotinas Renam
+
 def load_naturezas(request):
     centro_id = request.GET.get('centro')
     centro = CentroDeCusto.objects.filter(pk=centro_id).first()

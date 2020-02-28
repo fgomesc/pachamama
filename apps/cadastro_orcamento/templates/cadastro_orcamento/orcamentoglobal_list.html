@@ -1,0 +1,9 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+    <h2>Orçamento Global</h2>
+    {% for centrodecusto in object_list %}
+      <a class="btn btn-primary" href="{% url 'naturezas_orcamentarias' centrodecusto.id %}" role="button">{{centrodecusto.centro_de_custo}}</a>
+    {% endfor %}
+
+{% endblock content %}

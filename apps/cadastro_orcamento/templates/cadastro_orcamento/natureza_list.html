@@ -1,0 +1,42 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+    <h2>{{centro.numero_centro}} {{centro.nome_centro}}</h2>
+    <table class="table" id="book-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Jan</th>
+          <th>Fev</th>
+          <th>Mar</th>
+          <th>Abr</th>
+          <th>Jun</th>
+          <th>Jul</th>
+          <th>Ago</th>
+          <th>Set</th>
+          <th>Out</th>
+          <th>Nov</th>
+          <th>Dez</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for natureza in naturezas %}
+          <tr>
+            <td>{{natureza.numero_natureza}} {{natureza.nome_natureza}}</td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+{% endblock content %}

@@ -1,0 +1,49 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <h2>Cadastro - Natureza Orçamentária</h2>
+    <br>
+    <p>
+        <a class="btn btn-info" href="{% url 'create_natureza' %}" role="button">Criar Natureza Orçamentária</a>
+        <div class="float-right btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Exportar
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+              <a class="dropdown-item" href="{% url 'natureza_exportar_csv' %}">CSV</a>
+              <a class="dropdown-item" href="{% url 'natureza_exportar_xls' %}">XLS</a>
+            </div>
+        </div>
+    </p>
+    <br>
+    <h3>Natureza Orçamentária</h3>
+    <br>
+     <table class="table" id="book-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Numero da Natureza</th>
+            <th>Nome da Natureza</th>
+            <th>Natureza Orçamentária</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for naturezaorcamentaria in object_list %}
+            <tr>
+              <td>{{ naturezaorcamentaria.id }}</td>
+              <td>{{ naturezaorcamentaria.numero_natureza }}</td>
+              <td>{{ naturezaorcamentaria.nome_natureza }}</td>
+              <td>{{ naturezaorcamentaria.natureza_orcamento }}</td>
+              <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_natureza' naturezaorcamentaria.id %}" role="button">Edit</a>
+              <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_natureza' naturezaorcamentaria.id %}" role="button">Delete</a>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7" class="text-center bg-warning">No book</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock content %}

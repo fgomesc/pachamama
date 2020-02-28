@@ -1,0 +1,63 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <h2>Movimento Do Dia</h2>
+    <br>
+    <p>
+        <a class="btn btn-info" href="{% url 'create_mov_dia' %}" role="button">Lançamento</a>
+        <a class="btn btn-info" href="" role="button">Importação de Mov.</a>
+        <a class="btn btn-info" href="" role="button">Anexar Aquivos</a>
+    </p>
+    <br>
+    <h3>Movimento do Dia</h3>
+    <br>
+     <table class="table" id="book-table">
+        <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Cliente</th>
+            <th>Razão Social</th>
+            <th>Caso</th>
+            <th>Identificação</th>
+            <th>Sav</th>
+            <th>Data do Mov.</th>
+            <th>Adv</th>
+            <th>Valor</th>
+            <th>Conta</th>
+            <th>Codigo de Barras</th>
+            <th>Banco Favorecida</th>
+            <th>Agencia Favorecido</th>
+            <th>Conta Favorecido</th>
+            <th>Edit</th>
+            <th>Deletar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for movdodia in object_list %}
+            <tr>
+              <td>{{ movdodia.id }}</td>
+              <td>{{ movdodia.cliente }}</td>
+              <td>{{ movdodia.razao_social }}</td>
+              <td>{{ movdodia.caso }}</td>
+              <td>{{ movdodia.identificacao }}</td>
+              <td>{{ movdodia.sav }}</td>
+              <td>{{ movdodia.data_prov }}</td>
+              <td>{{ movdodia.adv }}</td>
+              <td>{{ movdodia.valor_prov }}</td>
+              <td>{{ movdodia.conta_corrente }}</td>
+              <td>{{ movdodia.codigo_de_barras }}</td>
+              <td>{{ movdodia.banco_dep }}</td>
+              <td>{{ movdodia.ag_dep }}</td>
+              <td>{{ movdodia.conta_dep }}</td>
+
+              <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_mov_dia' movdodia.id %}" role="button">Edit</a>
+              <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_mov_dia' movdodia.id %}" role="button">Delete</a>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7" class="text-center bg-warning">No book</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock content %}

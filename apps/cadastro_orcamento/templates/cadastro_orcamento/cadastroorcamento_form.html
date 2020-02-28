@@ -1,0 +1,33 @@
+{% extends "core/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Orçamento</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Salvar</button>
+            </div>
+        </form>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            $("#id_cc_cadastro_orcamento").change(function () {
+                var url = $("#form").attr("data-naturezas-url");  // get the url of the `load_cities` view
+                var centroId = $(this).val();  // get the selected country ID from the HTML input
+
+                $.ajax({                  // initialize an AJAX request
+                    url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                    data: {
+                    'centro': centroId       // add the country id to the GET parameters
+                    },
+                    success: function (data) {   // `data` is the return of the `load_cities` view function
+                        $("#id_no_cadastro_orcamento").html(data);  // replace the contents of the city input with the data that came from the server
+                    }
+                });
+            });
+        </script>
+    </div>
+{% endblock content %}

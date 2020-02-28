@@ -1,0 +1,45 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <h2>Cadastro - Perfil</h2>
+    <br>
+    <p>
+        <a class="btn btn-info" href="{% url 'create_perfil' %}" role="button">Criar Perfil</a>
+        <div class="float-right btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Exportar
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+              <a class="dropdown-item" href="{% url 'perfil_exportar_csv' %}">CSV</a>
+              <a class="dropdown-item" href="{% url 'perfil_exportar_xls' %}">XLS</a>
+            </div>
+        </div>
+    </p>
+    <br>
+    <h3>Perfil</h3>
+    <br>
+     <table class="table" id="book-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome Perfil</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for perfil in object_list %}
+            <tr>
+              <td>{{ perfil.id }}</td>
+              <td>{{ perfil.tipo_perfil }}</td>
+              <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_perfil' perfil.id %}" role="button">Edit</a>
+              <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_perfil' perfil.id %}" role="button">Delete</a>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7" class="text-center bg-warning">No book</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock content %}

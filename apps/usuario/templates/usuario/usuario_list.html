@@ -1,0 +1,51 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <h2>Cadastro - Usuários</h2>
+    <br>
+    <p>
+        <a class="btn btn-info" href="{% url 'create_usuario' %}" role="button">Criar Usuario</a>
+        <div class="float-right btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Exportar
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+              <a class="dropdown-item" href="{% url 'usuario_exportar_csv' %}">CSV</a>
+              <a class="dropdown-item" href="{% url 'usuario_exportar_xls' %}">XLS</a>
+            </div>
+        </div>
+    </p>
+    <br>
+    <h3>Usuários</h3>
+    <br>
+     <table class="table" id="book-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome Usuario</th>
+            <th>Usuário</th>
+            <th>Perfil</th>
+            <th>Permissao</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for usuario in object_list %}
+            <tr>
+              <td>{{ usuario.id }}</td>
+              <td>{{ usuario.primeiro_nome }} {{ usuario.ultimo_nome }}</td>
+              <td>{{ usuario.user }}</td>
+              <td>{{ usuario.perfil_usuario }}</td>
+              <td>{{ usuario.permissao_usuario }}</td>
+              <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_usuario' usuario.id %}" role="button">Edit</a>
+              <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_usuario' usuario.id %}" role="button">Delete</a>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7" class="text-center bg-warning">No book</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock content %}

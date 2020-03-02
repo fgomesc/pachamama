@@ -47,18 +47,18 @@ def load_naturezas(request):
     centro = CentroDeCusto.objects.filter(pk=centro_id).first()
     naturezas = centro.vinculo_natureza.all()
 
-    return render(request, 'naturezas_list_options.html', {'naturezas' : naturezas})
+    return render(request, 'cadastro_orcamento/naturezas_list_options.html', {'naturezas' : naturezas})
 
 
 
 def get_centros_usuario(id):
-    return Usuario.objects.filter(user__id = id).first().centrodecusto_usuario.all()
+    return Usuario.objects.filter(user__id=id).first().centrodecusto_usuario.all()
 
 
 
 class OrcamentoGlobalList(LoginRequiredMixin, ListView):
     model = CentroDeCusto
-    template_name = 'orcamentoglobal_list.html'
+    template_name = 'cadastro_orcamento/orcamentoglobal_list.html'
 
     def get_queryset(self):
         return get_centros_usuario(self.request.user.id)
@@ -66,7 +66,7 @@ class OrcamentoGlobalList(LoginRequiredMixin, ListView):
 
 
 class NaturezasPorCentro(LoginRequiredMixin, TemplateView):
-    template_name = 'natureza_list.html'
+    template_name = 'cadastro_orcamento/natureza_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

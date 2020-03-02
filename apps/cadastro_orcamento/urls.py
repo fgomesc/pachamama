@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import CadastroOrcamentoList, CadastroOrcamentoEdit, CadastroOrcamentoDelete, CadastroOrcamentoCreate, load_naturezas, OrcamentoGlobalList
+from .views import CadastroOrcamentoList, CadastroOrcamentoEdit, CadastroOrcamentoDelete, CadastroOrcamentoCreate, \
+    load_naturezas, OrcamentoGlobalList, NaturezasPorCentro
 
 urlpatterns = [
     path('', CadastroOrcamentoList.as_view(), name='list_cadastro_orcamento'),
@@ -8,4 +9,5 @@ urlpatterns = [
     path('novo/', CadastroOrcamentoCreate.as_view(), name='create_cadastro_orcamento'),
     path('ajax/load-naturezas/', load_naturezas, name='ajax_load_naturezas'),
     path('orcamentoglobal/', OrcamentoGlobalList.as_view(), name='list_orcamentoglobal'),
+    path('<int:id>/naturezas/', NaturezasPorCentro.as_view(), name='naturezas_orcamentarias')
 ]

@@ -16,6 +16,7 @@ urlpatterns = [
     path('perfil/', include('apps.perfil.urls')),
     path('permissao/', include('apps.permissao.urls')),
     path('cadastro-orcamento/', include('apps.cadastro_orcamento.urls')),
+    path('cadastro-estouro-orcamento/', include('apps.estouro_orcamento.urls')),
     path('movimento-dia/', include('apps.mov_dia.urls')),
     path('', include('apps.core.urls')),
 ]

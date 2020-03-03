@@ -1,9 +1,9 @@
 {% extends "core/base.html" %}
 {% block content %}
-    <h2>Orçamento - Cadastro</h2>
+    <h2>Estouro de Orçamento - Cadastro</h2>
     <br>
     <p>
-        <a class="btn btn-info" href="{% url 'create_cadastro_orcamento'%}" role="button">Cadastrar Orçamento</a>
+        <a class="btn btn-info" href="{% url 'create_cadastro_estouro'%}" role="button">Cadastrar</a>
     </p>
     <br>
     <h3>Orçamento</h3>
@@ -15,6 +15,7 @@
             <th>Natureza Orçamentária</th>
             <th>Período</th>
             <th>Valor</th>
+            <th>Status</th>
             <th>Editar</th>
             <th>Deletar</th>
           </tr>
@@ -26,8 +27,9 @@
               <td>{{ cadastroorcamento.no_cadastro_orcamento }}</td>
               <td>{{ cadastroorcamento.data_cadastro_orcamento }}</td>
               <td>{{ cadastroorcamento.valor_cadastro_orcamento }}</td>
-              <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_cadastro_orcamento' cadastroorcamento.id %}" role="button">Edit</a>
-              <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_cadastro_orcamento' cadastroorcamento.id %}" role="button">Delete</a>
+              <td>{{ cadastroorcamento.aprovacao }}</td>
+              <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_cadastro_estouro' cadastroorcamento.id %}" role="button">Edit</a>
+              <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_cadastro_estouro' cadastroorcamento.id %}" role="button">Delete</a>
             </tr>
           {% empty %}
             <tr>

@@ -1,0 +1,44 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <h2>Aprovar Estouro Orçamento</h2>
+    <br>
+    <br>
+    <h3>Estouro Orçamento</h3>
+    <br>
+     <table class="table" id="book-table">
+        <thead>
+          <tr>
+            <th>Centro de Custo</th>
+            <th>Natureza Orçamentária</th>
+            <th>Período</th>
+            <th>Valor</th>
+            <th>Status</th>
+            <th>Aprovar</th>
+            <th>Recusar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cadastroestouroorcamento in object_list %}
+            <tr>
+              <td>{{ cadastroestouroorcamento.cc_cadastro_orcamento }}</td>
+              <td>{{ cadastroestouroorcamento.no_cadastro_orcamento }}</td>
+              <td>{{ cadastroestouroorcamento.data_cadastro_orcamento }}</td>
+              <td>{{ cadastroestouroorcamento.valor_cadastro_orcamento }}</td>
+              <td>{{ cadastroestouroorcamento.status }}</td>
+              {% if cadastroestouroorcamento.status == 'Em Aprovação' %}
+                    <td><a class="btn btn-info btn-sm js-update-book" href="{% url 'aprovar_estouro_orcamento' cadastroestouroorcamento.id %}" role="button">Aprovar</a>
+                    <td><a class="btn btn-danger btn-sm js-delete-book" href="" role="button">Recusar</a>
+                {% else %}
+                    <tb></tb>
+                    <tb></tb>
+              {% endif %}
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7" class="text-center bg-warning">No book</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock content %}

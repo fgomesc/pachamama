@@ -18,18 +18,26 @@
             <th>Status</th>
             <th>Editar</th>
             <th>Deletar</th>
+            <th>Enviar Aprovação</th>
           </tr>
         </thead>
         <tbody>
-          {% for cadastroorcamento in object_list %}
+          {% for cadastroestouroorcamento in object_list %}
             <tr>
-              <td>{{ cadastroorcamento.cc_cadastro_orcamento }}</td>
-              <td>{{ cadastroorcamento.no_cadastro_orcamento }}</td>
-              <td>{{ cadastroorcamento.data_cadastro_orcamento }}</td>
-              <td>{{ cadastroorcamento.valor_cadastro_orcamento }}</td>
-              <td>{{ cadastroorcamento.aprovacao }}</td>
-              <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_cadastro_estouro' cadastroorcamento.id %}" role="button">Edit</a>
-              <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_cadastro_estouro' cadastroorcamento.id %}" role="button">Delete</a>
+              <td>{{ cadastroestouroorcamento.cc_cadastro_orcamento }}</td>
+              <td>{{ cadastroestouroorcamento.no_cadastro_orcamento }}</td>
+              <td>{{ cadastroestouroorcamento.data_cadastro_orcamento }}</td>
+              <td>{{ cadastroestouroorcamento.valor_cadastro_orcamento }}</td>
+              <td>{{ cadastroestouroorcamento.status }}</td>
+              {% if cadastroestouroorcamento.status == 'Criado' %}
+                    <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_cadastro_estouro' cadastroestouroorcamento.id %}" role="button">Edit</a>
+                    <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_cadastro_estouro' cadastroestouroorcamento.id %}" role="button">Delete</a>
+                    <td><a class="btn btn-info btn-sm js-delete-book" href="{% url 'enviar_estouro_aprovacao' cadastroestouroorcamento.id %}" role="button">Enviar Aprovação</a>
+                {% else %}
+                    <tb></tb>
+                    <tb></tb>
+                    <tb></tb>
+              {% endif %}
             </tr>
           {% empty %}
             <tr>

@@ -2,10 +2,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
-
+from django.views import View
 from apps.centro_de_custo.models import CentroDeCusto
 from apps.usuario.models import Usuario
 from .forms import CadastroEstouroOrcamento, CadastroEstouroForm
+
+
 
 """ <<<<<< Estouro de Verba - Cadastro
 
@@ -52,22 +54,46 @@ class CadastroEstouroCreate(LoginRequiredMixin, CreateView):
         return kwargs
 
 
+class EnviarEstouroAprovação(View):
+    def post(self, *args, **kwargs):
+        status_estouro = CadastroEstouroOrcamento.objects.get(id=kwargs['pk'])
+        status_estouro.status = 'R'
+        status_estouro.save()
+
+
+
+
+""" <<<<<< Estouro de Verba - Aprovação 
+
+Aprovando Estouro de Orçamento
+
+Parte aonde o usuário aprova o estouro cadastrado pelo usuário lançador
 
 """
 
-class AprovarEstouroList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    model = CadastroOrcamento
-    permission_required = 'can_see_aprove_orcamento'
-    template_name = 'cadastro_orcamento/aprovar_orcamento_list.html'
+class AprovarEstouroListOrcamento(LoginRequiredMixin, ListView):
+    model = CadastroEstouroOrcamento
+    form_class = CadastroEstouroForm
+    template_name = 'estouro_orcamento/aprovarestouroorcamento_list.html'
+
 
 
     def get_queryset(self):
         print(self.request.user.pk)
         orcamentos = Usuario.objects.filter(user__pk=self.request.user.pk).first().centrodecusto_usuario.all()
-        return CadastroOrcamento.objects.filter(aprovacao=False)
+        return CadastroEstouroOrcamento.objects.filter(status='Em Aprovação')
+
+
+class AprovarEstouroOrcamento(LoginRequiredMixin, UpdateView):
+    model = CadastroEstouroOrcamento
+    fields = ['status']
+
+    def get_success_url(self):
+        return reverse_lazy('list_aprovar_estouro')
 
 
 
+"""
 class AprovadorOrcamentoEdit(UpdateView):
     model = CadastroOrcamento
     fields = ['valor_cadastro_orcamento', 'obs_cadastro_orcamento', 'aprovacao']

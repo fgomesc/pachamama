@@ -8,6 +8,9 @@ from .models import Usuario
 from django.views import View
 import csv
 
+# importacao para criptografar a senha
+from django.contrib.auth.hashers import make_password
+
 
 
 
@@ -29,9 +32,16 @@ class UsuarioCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         usuario = form.save(commit=False)
+
         username = usuario.primeiro_nome.lower() + usuario.ultimo_nome.lower()
-        usuario.user = User.objects.create(username=username)
+        # criptografa a senha padrao
+        # sem criptografar a senha nao eh possivel logar com o user criado
+        # agora vc pode logar no sistema com o username e senha padrao
+        password = make_password('123456')
+
+        usuario.user = User.objects.create(username=username, password=password)
         usuario.save()
+
         return super(UsuarioCreate, self).form_valid(form)
 
 class ExportarUsuarioCSV(View):

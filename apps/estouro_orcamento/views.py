@@ -57,7 +57,7 @@ class CadastroEstouroCreate(LoginRequiredMixin, CreateView):
 class EnviarEstouroAprovação(View):
     def post(self, *args, **kwargs):
         status_estouro = CadastroEstouroOrcamento.objects.get(id=kwargs['pk'])
-        status_estouro.status = 'R'
+        status_estouro.status = 'A1'
         status_estouro.save()
 
 
@@ -71,6 +71,7 @@ Parte aonde o usuário aprova o estouro cadastrado pelo usuário lançador
 
 """
 
+
 class AprovarEstouroListOrcamento(LoginRequiredMixin, ListView):
     model = CadastroEstouroOrcamento
     form_class = CadastroEstouroForm
@@ -81,7 +82,7 @@ class AprovarEstouroListOrcamento(LoginRequiredMixin, ListView):
     def get_queryset(self):
         print(self.request.user.pk)
         orcamentos = Usuario.objects.filter(user__pk=self.request.user.pk).first().centrodecusto_usuario.all()
-        return CadastroEstouroOrcamento.objects.filter(status='Em Aprovação')
+        return CadastroEstouroOrcamento.objects.filter(status='Em Aprovação', cc_cadastro_orcamento__in=orcamentos)
 
 
 class AprovarEstouroOrcamento(LoginRequiredMixin, UpdateView):
@@ -94,11 +95,7 @@ class AprovarEstouroOrcamento(LoginRequiredMixin, UpdateView):
 
 
 """
-class AprovadorOrcamentoEdit(UpdateView):
-    model = CadastroOrcamento
-    fields = ['valor_cadastro_orcamento', 'obs_cadastro_orcamento', 'aprovacao']
-    success_url = reverse_lazy('list_aprovar_estouro')
-    
+
 
 """
 

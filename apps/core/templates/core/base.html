@@ -1,4 +1,5 @@
 {% load static %}
+{% block main %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +12,8 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'core/main.css' %}">
 
-    {% if title %}
-        <title>Financial System - {{ title }}</title>
+    {% if user.is_authenticated %}
+        <title>Financial System - {{ user.usuario.primeiro_nome }}</title>
     {% else %}
         <title>Financial System</title>
     {% endif %}
@@ -103,6 +104,8 @@
       </div>
     </main>
 
+    {{ user.usuario.primeiro_nome }} {{ user.usuario.ultimo_nome }} {{ user.usuario.perfil_usuario }}
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -111,3 +114,4 @@
 
 </body>
 </html>
+{% endblock %}

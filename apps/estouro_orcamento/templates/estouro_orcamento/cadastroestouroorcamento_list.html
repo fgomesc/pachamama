@@ -29,13 +29,13 @@
               <td>{{ cadastroestouroorcamento.data_cadastro_orcamento }}</td>
               <td>{{ cadastroestouroorcamento.valor_cadastro_orcamento }}</td>
               <td>{{ cadastroestouroorcamento.status }}</td>
-              {% if cadastroestouroorcamento.status == 'Criado' %}
-                    <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_cadastro_estouro' cadastroestouroorcamento.id %}" role="button">Edit</a>
-                    <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_cadastro_estouro' cadastroestouroorcamento.id %}" role="button">Delete</a>
-                    <td><a class="btn btn-info btn-sm js-delete-book" href="{% url 'enviar_estouro_aprovacao' cadastroestouroorcamento.id %}" role="button">Enviar Aprovação</a>
+              {% if cadastroestouroorcamento.status == 'C' %}
+                    <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_cadastro_estouro' cadastroestouroorcamento.id %}" role="button">Edit</a></td>
+                    <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_cadastro_estouro' cadastroestouroorcamento.id %}" role="button">Delete</a></td>
+                    <td><a class="btn btn-info btn-sm js-delete-book" href="{% url 'enviar_estouro_aprovacao' cadastroestouroorcamento.id %}" role="button">Enviar Aprovação</a></td>
                 {% else %}
                     <tb></tb>
-                    <tb></tb>
+                    <tb><tb>
                     <tb></tb>
               {% endif %}
             </tr>

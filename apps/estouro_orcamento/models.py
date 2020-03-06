@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 from apps.centro_de_custo.models import CentroDeCusto
 from apps.natureza_orcamentaria.models import NaturezaOrcamentaria
-from apps.permissao.models import Permissao
 
 class CadastroEstouroOrcamento(models.Model):
     STATUS_CHOICES = (('C', 'Criado'), ('A1', 'Aprovação 1'), ('A2', 'Aprovação 2'), ('AP', 'Aprovado'))

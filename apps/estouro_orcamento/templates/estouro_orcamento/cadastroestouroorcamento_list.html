@@ -11,6 +11,7 @@
      <table class="table" id="book-table">
         <thead>
           <tr>
+            <th>Id.</th>
             <th>Centro de Custo</th>
             <th>Natureza Orçamentária</th>
             <th>Período</th>
@@ -24,6 +25,7 @@
         <tbody>
           {% for cadastroestouroorcamento in object_list %}
             <tr>
+              <td>{{ cadastroestouroorcamento.id }}</td>
               <td>{{ cadastroestouroorcamento.cc_cadastro_orcamento }}</td>
               <td>{{ cadastroestouroorcamento.no_cadastro_orcamento }}</td>
               <td>{{ cadastroestouroorcamento.data_cadastro_orcamento }}</td>

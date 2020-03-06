@@ -1,4 +1,7 @@
+from urllib import request
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
@@ -6,8 +9,7 @@ from django.views import View
 from apps.centro_de_custo.models import CentroDeCusto
 from apps.usuario.models import Usuario
 from .forms import CadastroEstouroOrcamento, CadastroEstouroForm
-
-
+from django.contrib import messages
 
 """ <<<<<< Estouro de Verba - Cadastro
 
@@ -54,11 +56,16 @@ class CadastroEstouroCreate(LoginRequiredMixin, CreateView):
         return kwargs
 
 
-class EnviarEstouroAprovação(View):
-    def post(self, *args, **kwargs):
+class EnviarEstouroAprovacao(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
         status_estouro = CadastroEstouroOrcamento.objects.get(id=kwargs['pk'])
         status_estouro.status = 'A1'
         status_estouro.save()
+
+        return HttpResponseRedirect(reverse_lazy('list_cadastro_estouro'))
+
+
+
 
 
 
@@ -72,7 +79,7 @@ Parte aonde o usuário aprova o estouro cadastrado pelo usuário lançador
 """
 
 
-class AprovarEstouroListOrcamento(LoginRequiredMixin, ListView):
+class AprovarEstouroListOrcamento1(LoginRequiredMixin, ListView):
     model = CadastroEstouroOrcamento
     form_class = CadastroEstouroForm
     template_name = 'estouro_orcamento/aprovarestouroorcamento_list.html'
@@ -82,15 +89,28 @@ class AprovarEstouroListOrcamento(LoginRequiredMixin, ListView):
     def get_queryset(self):
         print(self.request.user.pk)
         orcamentos = Usuario.objects.filter(user__pk=self.request.user.pk).first().centrodecusto_usuario.all()
-        return CadastroEstouroOrcamento.objects.filter(status='Em Aprovação', cc_cadastro_orcamento__in=orcamentos)
+        return CadastroEstouroOrcamento.objects.filter(status='A1', cc_cadastro_orcamento__in=orcamentos)
 
 
-class AprovarEstouroOrcamento(LoginRequiredMixin, UpdateView):
-    model = CadastroEstouroOrcamento
-    fields = ['status']
+class AprovarEstouroOrcamento1(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        status_estouro = CadastroEstouroOrcamento.objects.get(id=kwargs['pk'])
+        status_estouro.status = 'A2'
+        status_estouro.save()
 
-    def get_success_url(self):
-        return reverse_lazy('list_aprovar_estouro')
+        return HttpResponseRedirect(reverse_lazy('list_aprovar_estouro'))
+
+
+
+class RecusarEstouroOrcamento1(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        status_estouro = CadastroEstouroOrcamento.objects.get(id=kwargs['pk'])
+        status_estouro.status = 'C'
+        status_estouro.save()
+
+
+
+        return HttpResponseRedirect(reverse_lazy('list_aprovar_estouro'))
 
 
 

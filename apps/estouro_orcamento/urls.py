@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import CadastroEstouroList, CadastroEstouroEdit, CadastroEstouroDelete, CadastroEstouroCreate, \
     load_naturezas, EnviarEstouroAprovacao, AprovarEstouroListOrcamento1, AprovarEstouroOrcamento1, \
-    RecusarEstouroOrcamento1
+    RecusarEstouroOrcamento1, AprovarEstouroOrcamento2, RecusarEstouroOrcamento2, AprovarEstouroListOrcamento2
 
 urlpatterns = [
     path('', CadastroEstouroList.as_view(), name='list_cadastro_estouro'),
@@ -13,5 +13,8 @@ urlpatterns = [
     path('aprovar-estouro1', AprovarEstouroListOrcamento1.as_view(), name='list_aprovar_estouro'),
     path('recusar-estouro1/<int:pk>/', RecusarEstouroOrcamento1.as_view(), name='recusar_estouro_orcamento'),
     path('editar-aprovador/<int:pk>/', AprovarEstouroOrcamento1.as_view(), name='aprovar_estouro_orcamento'),
+    path('aprovar-estouro2', AprovarEstouroListOrcamento2.as_view(), name='list_aprovar_estouro2'),
+    path('recusar-estouro2/<int:pk>/', RecusarEstouroOrcamento2.as_view(), name='recusar_estouro_orcamento2'),
+    path('editar-aprovador2/<int:pk>/', AprovarEstouroOrcamento2.as_view(), name='aprovar_estouro_orcamento2'),
 
 ]

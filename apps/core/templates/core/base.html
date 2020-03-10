@@ -74,7 +74,13 @@
                   </a>
 
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'list_aprovar_estouro' %}">Aprovar Estouro de Orçamento</a>
+                    {% if perms.global_permissions.aprovacao1_estouro_orcamento %}
+                        <a class="dropdown-item" href="{% url 'list_aprovar_estouro' %}">Aprovar Estouro de Orçamento</a>
+                    {% elif perms.global_permissions.aprovacao2_estouro_orcamento %}
+                        <a class="dropdown-item" href="{% url 'list_aprovar_estouro2' %}">Aprovar Estouro de Orçamento</a>
+                    {% else %}
+                        <a class="dropdown-item" href=""></a>
+                    {% endif %}
                   </div>
                 </div>
               <a class="nav-item nav-link" href="{% url 'dashboard' %}">Dashboard</a>
@@ -104,7 +110,7 @@
       </div>
     </main>
 
-    {{ user.usuario.primeiro_nome }} {{ user.usuario.ultimo_nome }} {{ user.usuario.perfil_usuario }}
+    {{ user.usuario.primeiro_nome }} {{ user.usuario.ultimo_nome }}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

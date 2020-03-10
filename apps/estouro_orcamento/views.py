@@ -1,6 +1,4 @@
-from urllib import request
-
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -9,7 +7,8 @@ from django.views import View
 from apps.centro_de_custo.models import CentroDeCusto
 from apps.usuario.models import Usuario
 from .forms import CadastroEstouroOrcamento, CadastroEstouroForm
-from django.contrib import messages
+
+
 
 """ <<<<<< Estouro de Verba - Cadastro
 
@@ -29,9 +28,10 @@ class CadastroEstouroList(LoginRequiredMixin, ListView):
 
 
 
-class CadastroEstouroEdit(LoginRequiredMixin, UpdateView):
+class CadastroEstouroEdit(PermissionRequiredMixin, UpdateView):
     model = CadastroEstouroOrcamento
     form_class = CadastroEstouroForm
+    permission_required = 'global_permissions.cadastro_estouro_orcamento'
 
     def get_form_kwargs(self):
         kwargs = super(CadastroEstouroEdit, self).get_form_kwargs()
@@ -40,15 +40,17 @@ class CadastroEstouroEdit(LoginRequiredMixin, UpdateView):
 
 
 
-class CadastroEstouroDelete(LoginRequiredMixin, DeleteView):
+class CadastroEstouroDelete(PermissionRequiredMixin, DeleteView):
     model = CadastroEstouroOrcamento
     success_url = reverse_lazy('list_cadastro_estouro')
+    permission_required = 'global_permissions.cadastro_estouro_orcamento'
 
 
 
-class CadastroEstouroCreate(LoginRequiredMixin, CreateView):
+class CadastroEstouroCreate(PermissionRequiredMixin, CreateView):
     model = CadastroEstouroOrcamento
     form_class = CadastroEstouroForm
+    permission_required = 'global_permissions.cadastro_estouro_orcamento'
 
     def get_form_kwargs(self):
         kwargs = super(CadastroEstouroCreate, self).get_form_kwargs()
@@ -56,7 +58,10 @@ class CadastroEstouroCreate(LoginRequiredMixin, CreateView):
         return kwargs
 
 
-class EnviarEstouroAprovacao(LoginRequiredMixin, View):
+class EnviarEstouroAprovacao(PermissionRequiredMixin, View):
+    permission_required = 'global_permissions.cadastro_estouro_orcamento'
+
+
     def get(self, *args, **kwargs):
         status_estouro = CadastroEstouroOrcamento.objects.get(id=kwargs['pk'])
         status_estouro.status = 'A1'
@@ -68,9 +73,7 @@ class EnviarEstouroAprovacao(LoginRequiredMixin, View):
 
 
 
-
-
-""" <<<<<< Estouro de Verba - Aprovação 
+""" <<<<<< Estouro de Verba - Aprovação 1 
 
 Aprovando Estouro de Orçamento
 
@@ -85,14 +88,15 @@ class AprovarEstouroListOrcamento1(LoginRequiredMixin, ListView):
     template_name = 'estouro_orcamento/aprovarestouroorcamento_list.html'
 
 
-
     def get_queryset(self):
         print(self.request.user.pk)
         orcamentos = Usuario.objects.filter(user__pk=self.request.user.pk).first().centrodecusto_usuario.all()
         return CadastroEstouroOrcamento.objects.filter(status='A1', cc_cadastro_orcamento__in=orcamentos)
 
 
-class AprovarEstouroOrcamento1(LoginRequiredMixin, View):
+class AprovarEstouroOrcamento1(PermissionRequiredMixin, View):
+    permission_required = 'global_permissions.aprovacao1_estouro_orcamento'
+
     def get(self, *args, **kwargs):
         status_estouro = CadastroEstouroOrcamento.objects.get(id=kwargs['pk'])
         status_estouro.status = 'A2'
@@ -102,7 +106,10 @@ class AprovarEstouroOrcamento1(LoginRequiredMixin, View):
 
 
 
-class RecusarEstouroOrcamento1(LoginRequiredMixin, View):
+class RecusarEstouroOrcamento1(PermissionRequiredMixin, View):
+    permission_required = 'global_permissions.aprovacao1_estouro_orcamento'
+
+
     def get(self, *args, **kwargs):
         status_estouro = CadastroEstouroOrcamento.objects.get(id=kwargs['pk'])
         status_estouro.status = 'C'
@@ -113,6 +120,52 @@ class RecusarEstouroOrcamento1(LoginRequiredMixin, View):
         return HttpResponseRedirect(reverse_lazy('list_aprovar_estouro'))
 
 
+
+""" <<<<<< Estouro de Verba - Aprovação 2
+
+Aprovando Estouro de Orçamento
+
+Parte aonde o usuário aprova o estouro cadastrado pelo usuário lançador
+
+"""
+
+
+class AprovarEstouroListOrcamento2(LoginRequiredMixin, ListView):
+    model = CadastroEstouroOrcamento
+    form_class = CadastroEstouroForm
+    template_name = 'estouro_orcamento/aprovarestouroorcamento2_list.html'
+
+
+    def get_queryset(self):
+        print(self.request.user.pk)
+        orcamentos = Usuario.objects.filter(user__pk=self.request.user.pk).first().centrodecusto_usuario.all()
+        return CadastroEstouroOrcamento.objects.filter(status='A2', cc_cadastro_orcamento__in=orcamentos)
+
+
+class AprovarEstouroOrcamento2(PermissionRequiredMixin, View):
+    permission_required = 'global_permissions.aprovacao2_estouro_orcamento'
+
+    def get(self, *args, **kwargs):
+        status_estouro = CadastroEstouroOrcamento.objects.get(id=kwargs['pk'])
+        status_estouro.status = 'AP'
+        status_estouro.save()
+
+        return HttpResponseRedirect(reverse_lazy('list_aprovar_estouro2'))
+
+
+
+class RecusarEstouroOrcamento2(PermissionRequiredMixin, View):
+    permission_required = 'global_permissions.aprovacao2_estouro_orcamento'
+
+
+    def get(self, *args, **kwargs):
+        status_estouro = CadastroEstouroOrcamento.objects.get(id=kwargs['pk'])
+        status_estouro.status = 'C'
+        status_estouro.save()
+
+
+
+        return HttpResponseRedirect(reverse_lazy('list_aprovar_estouro2'))
 
 """
 

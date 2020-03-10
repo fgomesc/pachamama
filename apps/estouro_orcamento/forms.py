@@ -12,5 +12,5 @@ class CadastroEstouroForm(ModelForm):
 
     class Meta:
         model = CadastroEstouroOrcamento
-        fields = ['cc_cadastro_orcamento', 'no_cadastro_orcamento', 'valor_cadastro_orcamento', 'data_cadastro_orcamento', 'obs_cadastro_orcamento', 'aprovacao', 'status']
+        fields = ['cc_cadastro_orcamento', 'no_cadastro_orcamento', 'valor_cadastro_orcamento', 'data_cadastro_orcamento', 'obs_cadastro_orcamento']
 

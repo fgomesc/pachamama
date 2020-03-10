@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'apps.estouro_orcamento',
     'apps.mov_dia',
     'crispy_forms',
+    'global_permissions',
 
 ]
 

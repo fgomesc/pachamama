@@ -62,8 +62,7 @@
                   </a>
 
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="">Conta Auxiliar a Despesas Adm.</a>
-                    <a class="dropdown-item" href="">SAV's</a>
+                    <a class="dropdown-item" href="{% url 'list_contas_a_pagar'%}">Lançamento</a>
                     <a class="dropdown-item" href="{% url 'list_mov_dia' %}">Movimento do Dia</a>
                     <a class="dropdown-item" href="{% url 'list_cadastro_estouro' %}">Estouro de Orçamento</a>
                   </div>
@@ -109,8 +108,6 @@
         </div>
       </div>
     </main>
-
-    {{ user.usuario.primeiro_nome }} {{ user.usuario.ultimo_nome }}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

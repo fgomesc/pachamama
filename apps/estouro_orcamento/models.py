@@ -10,7 +10,7 @@ class CadastroEstouroOrcamento(models.Model):
     valor_cadastro_orcamento = models.DecimalField(max_digits=10, decimal_places=2)
     data_cadastro_orcamento = models.DateField(null=True, blank=True)
     obs_cadastro_orcamento = models.CharField(max_length=1000)
-    aprovacao = models.BooleanField(verbose_name='Aprovação', default = False)
+    aprovacao = models.BooleanField(verbose_name='Aprovação', default=False)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='C', blank=False, null=False)
 
 

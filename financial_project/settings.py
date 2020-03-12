@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'apps.permissao',
     'apps.cadastro_orcamento',
     'apps.estouro_orcamento',
+    'apps.contas_a_pagar',
     'apps.mov_dia',
     'crispy_forms',
     'global_permissions',

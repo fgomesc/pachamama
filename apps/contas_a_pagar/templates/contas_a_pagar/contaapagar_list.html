@@ -1,0 +1,57 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <h2>Lançamento Contas a Pagar</h2>
+    <br>
+    <p>
+        <a class="btn btn-info" href="{% url 'create_cadastro_estouro' %}" role="button">Inlcuir</a>
+    </p>
+    <br>
+    <h3>Orçamento</h3>
+    <br>
+     <table class="table" id="book-table">
+        <thead>
+          <tr>
+            <th>Id.</th>
+            <th>Cliente</th>
+            <th>Caso</th>
+            <th>Natureza Orçamentária</th>
+            <th>Correspondente</th>
+            <th>Fornecedor</th>
+            <th>Valor</th>
+            <th>Status</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+            <th>Enviar para Aprovação</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for contasapagar in object_list %}
+            <tr>
+              <td>{{ contasapagar.id }}</td>
+              <td>{{ contasapagar.cliente_contas_a_pagar }}</td>
+              <td>{{ contasapagar.caso_contas_a_pagar }}</td>
+              <td>{{ contasapagar.natureza_contas_a_pagar }}</td>
+              <td>{{ contasapagar.correspondente_contas_a_pagar }}</td>
+              <td>{{ contasapagar.fornecedor_contas_a_pagar }}</td>
+              <td>{{ contasapagar.valor_contas_a_pagar }}</td>
+              <td>{{ contasapagar.status_contas_a_pagar }}</td>
+              {% if contasapagar.status_contas_a_pagar == 'C' %}
+                    <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_contas_a_pagar' contasapagar.id %}" role="button">Edit</a></td>
+                    <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_contas_a_pagar' contasapagar.id %}" role="button">Delete</a></td>
+                    <td><a class="btn btn-info btn-sm js-delete-book" href="" role="button">Enviar Aprovação</a></td>
+                {% else %}
+                    <td><a class="btn btn-light" href="" role="button"></a></td>
+                    <td><a class="btn btn-light" href="" role="button"></a></td>
+                    <td><a class="btn btn-light" href="" role="button"></a></td>
+              {% endif %}
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7" class="text-center bg-warning">No book</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock content %}

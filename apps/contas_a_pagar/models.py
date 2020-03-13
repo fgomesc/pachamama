@@ -27,8 +27,6 @@ class ContaAPagar(models.Model):
     status_contas_a_pagar = models.CharField(max_length=2, choices=STATUS_CHOICES, default='C', blank=False, null=False)
 
 
-
-
     def get_absolute_url(self):
         return reverse('list_contas_a_pagar')
 

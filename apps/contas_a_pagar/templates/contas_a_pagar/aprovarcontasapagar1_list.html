@@ -1,0 +1,50 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <h2>Aprovar Contas a Pagar</h2>
+    <br>
+    <br>
+    <h3>Lançamentos Contas a Pagar</h3>
+    <br>
+     <table class="table" id="book-table">
+        <thead>
+          <tr>
+            <th>Id.</th>
+            <th>Cliente</th>
+            <th>Caso</th>
+            <th>Natureza Orçamentária</th>
+            <th>Correspondente</th>
+            <th>Fornecedor</th>
+            <th>Valor</th>
+            <th>Status</th>
+            <th>Aprovar</th>
+            <th>Recusar</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for contasapagar in object_list %}
+            <tr>
+              <td>{{ contasapagar.id }}</td>
+              <td>{{ contasapagar.cliente_contas_a_pagar }}</td>
+              <td>{{ contasapagar.caso_contas_a_pagar }}</td>
+              <td>{{ contasapagar.natureza_contas_a_pagar }}</td>
+              <td>{{ contasapagar.correspondente_contas_a_pagar }}</td>
+              <td>{{ contasapagar.fornecedor_contas_a_pagar }}</td>
+              <td>{{ contasapagar.valor_contas_a_pagar }}</td>
+              <td>{{ contasapagar.status_contas_a_pagar }}</td>
+              {% if contasapagar.status_contas_a_pagar == 'A1' %}
+                    <td><a class="btn btn-info btn-sm js-update-book" href="{% url 'aprovar_contas_a_pagar' contasapagar.id %}" role="button">Aprovar</a>
+                    <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'recusar_contas_a_pagar' contasapagar.id %}" role="button">Recusar</a>
+                {% else %}
+                    <td><a class="btn btn-light" href="{% url 'list_aprovar_contas_a_pagar' %}" role="button"></a></td>
+                    <td><a class="btn btn-light" href="" role="button"></a></td>
+              {% endif %}
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7" class="text-center bg-warning">No book</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock content %}

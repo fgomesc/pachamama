@@ -1,12 +1,9 @@
 {% extends "core/base.html" %}
 {% block content %}
-    <h2>Lançamento Contas a Pagar</h2>
+    <h2>Aprovar Contas a Pagar</h2>
     <br>
-    <p>
-        <a class="btn btn-info" href="{% url 'create_cadastro_estouro' %}" role="button">Inlcuir</a>
-    </p>
     <br>
-    <h3>Lançamentos</h3>
+    <h3>Lançamentos Contas a Pagar</h3>
     <br>
      <table class="table" id="book-table">
         <thead>
@@ -19,9 +16,8 @@
             <th>Fornecedor</th>
             <th>Valor</th>
             <th>Status</th>
-            <th>Editar</th>
-            <th>Deletar</th>
-            <th>Mudar Status</th>
+            <th>Aprovar</th>
+            <th>Recusar</th>
 
           </tr>
         </thead>
@@ -36,19 +32,12 @@
               <td>{{ contasapagar.fornecedor_contas_a_pagar }}</td>
               <td>{{ contasapagar.valor_contas_a_pagar }}</td>
               <td>{{ contasapagar.status_contas_a_pagar }}</td>
-              {% if contasapagar.status_contas_a_pagar == 'C' %}
-                    <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_contas_a_pagar' contasapagar.id %}" role="button">Edit</a></td>
-                    <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_contas_a_pagar' contasapagar.id %}" role="button">Delete</a></td>
-                    <td><a class="btn btn-info btn-sm js-delete-book" href="{% url 'enviar_contas_a_pagar_aprovacao' contasapagar.id %}" role="button">Enviar Aprovação</a></td>
-                {% elif contasapagar.status_contas_a_pagar == 'AP' %}
-                    <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'anexar_boleto_contas_a_receber' contasapagar.id %}" role="button">Anexar</a></td>
-                    <td><a class="btn btn-light" href="" role="button"></a></td>
-                    <td><a class="btn btn-info btn-sm js-delete-book" href="{% url 'enviar_pagamento_contas_a_receber' contasapagar.id %}" role="button">Enviar Pagamento</a></td>
+              {% if contasapagar.status_contas_a_pagar == 'A2' %}
+                    <td><a class="btn btn-info btn-sm js-update-book" href="{% url 'aprovar_contas_a_pagar2' contasapagar.id %}" role="button">Aprovar</a>
+                    <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'recusar_contas_a_pagar2' contasapagar.id %}" role="button">Recusar</a>
                 {% else %}
                     <td><a class="btn btn-light" href="" role="button"></a></td>
                     <td><a class="btn btn-light" href="" role="button"></a></td>
-                    <td><a class="btn btn-light" href="" role="button"></a></td>
-
               {% endif %}
             </tr>
           {% empty %}
@@ -58,5 +47,4 @@
           {% endfor %}
         </tbody>
       </table>
-
 {% endblock content %}

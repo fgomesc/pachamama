@@ -79,7 +79,17 @@
                         <a class="dropdown-item" href="{% url 'list_aprovar_estouro2' %}">Aprovar Estouro de Orçamento</a>
                     {% else %}
                         <a class="dropdown-item" href=""></a>
+
                     {% endif %}
+                    {% if perms.global_permissions.aprovacao1_contas_a_pagar %}
+                        <a class="dropdown-item" href="{% url 'list_aprovar_contas_a_pagar' %}">Aprovar Contas a Pagar1</a>
+                    {% elif perms.global_permissions.aprovacao2_contas_a_pagar %}
+                        <a class="dropdown-item" href="{% url 'list_aprovar_contas_a_pagar2' %}">Aprovar Contas a Pagar2</a>
+                    {% else %}
+                        <a class="dropdown-item" href=""></a>
+                    {% endif %}
+
+
                   </div>
                 </div>
               <a class="nav-item nav-link" href="{% url 'dashboard' %}">Dashboard</a>
@@ -108,6 +118,8 @@
         </div>
       </div>
     </main>
+
+    {{ user.usuario.primeiro_nome }} {{ user.usuario.ultimo_nome }} {{ perms.global_permissions }}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

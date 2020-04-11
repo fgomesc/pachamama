@@ -3,7 +3,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
-
 from apps.contas_a_pagar.forms import CadastroContasAPagarForm
 from .models import ContaAPagar
 from apps.usuario.models import Usuario
@@ -167,7 +166,10 @@ Parte aonde o lançador envia o lançamnto para o financeiro realizar o pagament
 
 class EnviarParaPagamentoContasAPagarEdit(PermissionRequiredMixin, UpdateView):
     model = ContaAPagar
-    fields = ['anexo_boleto_contas_a_pagar']
+    fields = ['anexo_boleto_contas_a_pagar',
+              'banco_beneficiario_contas_a_pagar',
+              'ag_beneficiario_contas_a_pagar',
+              'cc_beneficiario_contas_a_pagar']
     permission_required = 'global_permissions.cadastro_contas_a_pagar'
 
 
@@ -176,7 +178,128 @@ class EnviarPgamento(PermissionRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         status_contasapagarap1 = ContaAPagar.objects.get(id=kwargs['pk'])
-        status_contasapagarap1.status_contas_a_pagar = 'PG'
+        status_contasapagarap1.status_contas_a_pagar = 'EF'
         status_contasapagarap1.save()
 
         return HttpResponseRedirect(reverse_lazy('list_contas_a_pagar'))
+
+
+""" <<<<<< Contas a Pagar - Evolução de Notas - Fiscal
+
+Fila do Fiscal pra conferencia e evolução dos pagamentos. 
+
+Parte aonde o fiscal recebe os laçamentos de contas a pagar, confere os dados, lança os impostos e evoluiu para 
+o pagamento junto ao financeiro
+
+"""
+
+
+class EvolucaoFiscalList(LoginRequiredMixin, ListView):
+    model = ContaAPagar
+    template_name = 'contas_a_pagar/evolucaofiscal_list.html'
+
+    def get_queryset(self):
+        print(self.request.user.pk)
+        return ContaAPagar.objects.filter(status_contas_a_pagar='EF')
+
+
+
+class EvolucaoFiscalEdit(PermissionRequiredMixin, UpdateView):
+    model = ContaAPagar
+    fields = ['anexo_boleto_contas_a_pagar',
+              'banco_beneficiario_contas_a_pagar',
+              'ag_beneficiario_contas_a_pagar',
+              'cc_beneficiario_contas_a_pagar',
+              'iss_contas_a_pagar',
+              'pis_contas_a_pagar',
+              'cofins_contas_a_pagar',
+              'css_contas_a_pagar',
+              'ir_contas_a_pagar',
+              'data_pagamento_contas_a_pagar',
+              ]
+    permission_required = 'global_permissions.cadastro_contas_a_pagar'
+
+    success_url = reverse_lazy('list_evolucao_fiscal')
+
+
+class EvolucaoFiscalEvoluir(PermissionRequiredMixin, View):
+    permission_required = 'global_permissions.cadastro_contas_a_pagar'
+
+    def get(self, *args, **kwargs):
+        status_contasapagarap1 = ContaAPagar.objects.get(id=kwargs['pk'])
+        status_contasapagarap1.status_contas_a_pagar = 'EFF'
+        status_contasapagarap1.save()
+
+        return HttpResponseRedirect(reverse_lazy('list_evolucao_fiscal'))
+
+
+
+""" <<<<<< Contas a Pagar - Montagem de movimento do dia
+
+Montagem do movimento do dia pelo contas a pagar. 
+
+Contas a pagar prepara o movimento do dia e cria os arquivos cnab'' de cada banco
+
+
+"""
+
+class MovimentodoDiaList(LoginRequiredMixin, ListView):
+    model = ContaAPagar
+    template_name = 'contas_a_pagar/movimentododia_list.html'
+
+    def get_queryset(self):
+        print(self.request.user.pk)
+        return ContaAPagar.objects.filter(status_contas_a_pagar='EFF') | \
+               ContaAPagar.objects.filter(status_contas_a_pagar='MOV') | \
+               ContaAPagar.objects.filter(status_contas_a_pagar='BX')
+
+
+
+
+class MovimentodoDiaEdit(PermissionRequiredMixin, UpdateView):
+    model = ContaAPagar
+    fields = ['data_pagamento_contas_a_pagar']
+    permission_required = 'global_permissions.cadastro_contas_a_pagar'
+    success_url = reverse_lazy('list_movimento_do_dia')
+
+
+
+class MovimentodoDiaEvolucao(PermissionRequiredMixin, View):
+    permission_required = 'global_permissions.cadastro_contas_a_pagar'
+
+    def get(self, *args, **kwargs):
+        status_contasapagarap1 = ContaAPagar.objects.get(id=kwargs['pk'])
+        status_contasapagarap1.status_contas_a_pagar = 'MOV'
+        status_contasapagarap1.save()
+
+        return HttpResponseRedirect(reverse_lazy('list_movimento_do_dia'))
+
+
+class MovimentodoDiaRetornar(PermissionRequiredMixin, View):
+    permission_required = 'global_permissions.cadastro_contas_a_pagar'
+
+    def get(self, *args, **kwargs):
+        status_contasapagarap1 = ContaAPagar.objects.get(id=kwargs['pk'])
+        status_contasapagarap1.status_contas_a_pagar = 'EFF'
+        status_contasapagarap1.save()
+
+        return HttpResponseRedirect(reverse_lazy('list_movimento_do_dia'))
+
+
+
+class MovimentodoDiaBaixar(PermissionRequiredMixin, View):
+    permission_required = 'global_permissions.cadastro_contas_a_pagar'
+
+    def get(self, *args, **kwargs):
+        status_contasapagarap1 = ContaAPagar.objects.get(id=kwargs['pk'])
+        status_contasapagarap1.status_contas_a_pagar = 'BX'
+        status_contasapagarap1.save()
+
+        return HttpResponseRedirect(reverse_lazy('list_movimento_do_dia'))
+
+
+class IncluirComprovante(PermissionRequiredMixin, UpdateView):
+    model = ContaAPagar
+    fields = ['anexo_comprovante_contas_a_pagar']
+    permission_required = 'global_permissions.cadastro_contas_a_pagar'
+    success_url = reverse_lazy('list_movimento_do_dia')

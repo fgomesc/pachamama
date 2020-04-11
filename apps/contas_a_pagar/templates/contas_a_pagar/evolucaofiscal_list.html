@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <h2>Evolução Fiscal</h2>
+    <br>
+    <br>
+    <h3>Lançamentos</h3>
+    <br>
+     <table class="table" id="book-table">
+        <thead>
+          <tr>
+            <th>Id.</th>
+            <th>Cliente</th>
+            <th>Caso</th>
+            <th>Natureza Orçamentária</th>
+            <th>Correspondente</th>
+            <th>Fornecedor</th>
+            <th>Valor</th>
+            <th>Status</th>
+            <th>Editar</th>
+            <th>Mudar Status</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for contasapagar in object_list %}
+            <tr>
+              <td>{{ contasapagar.id }}</td>
+              <td>{{ contasapagar.cliente_contas_a_pagar }}</td>
+              <td>{{ contasapagar.caso_contas_a_pagar }}</td>
+              <td>{{ contasapagar.natureza_contas_a_pagar }}</td>
+              <td>{{ contasapagar.correspondente_contas_a_pagar }}</td>
+              <td>{{ contasapagar.fornecedor_contas_a_pagar }}</td>
+              <td>{{ contasapagar.valor_contas_a_pagar }}</td>
+              <td>{{ contasapagar.status_contas_a_pagar }}</td>
+              {% if contasapagar.status_contas_a_pagar == 'EF' %}
+                    <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_evolucao_fiscal' contasapagar.id %}" role="button">Edit</a></td>
+                    <td><a class="btn btn-info btn-sm js-delete-book" href="{% url 'enviar_fiscal_para_financeiro' contasapagar.id %}" role="button">Enviar Financ.</a></td>
+              {% endif %}
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7" class="text-center bg-warning">No book</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock content %}

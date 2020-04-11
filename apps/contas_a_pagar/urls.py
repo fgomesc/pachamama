@@ -12,7 +12,16 @@ from .views import \
     AprovarContasAPagar2, \
     RecusarContaAPagar2, \
     EnviarParaPagamentoContasAPagarEdit, \
-    EnviarPgamento
+    EnviarPgamento, \
+    EvolucaoFiscalList, \
+    EvolucaoFiscalEdit, \
+    EvolucaoFiscalEvoluir, \
+    MovimentodoDiaList,\
+    MovimentodoDiaEdit, \
+    MovimentodoDiaEvolucao, \
+    MovimentodoDiaRetornar, \
+    MovimentodoDiaBaixar, \
+    IncluirComprovante
 
 
 
@@ -30,6 +39,14 @@ urlpatterns = [
     path('editar-aprovador2/<int:pk>/', RecusarContaAPagar2.as_view(), name='recusar_contas_a_pagar2'),
     path('editar-enviar-para-pagamento/<int:pk>/', EnviarParaPagamentoContasAPagarEdit.as_view(), name='anexar_boleto_contas_a_receber'),
     path('enviar-enviar-para-pagamento/<int:pk>/', EnviarPgamento.as_view(), name='enviar_pagamento_contas_a_receber'),
-
+    path('evolucao-fiscal', EvolucaoFiscalList.as_view(), name='list_evolucao_fiscal'),
+    path('editar-fiscal/<int:pk>/', EvolucaoFiscalEdit.as_view(), name='edit_evolucao_fiscal'),
+    path('enviar-fiscal-pagamento/<int:pk>', EvolucaoFiscalEvoluir.as_view(), name='enviar_fiscal_para_financeiro'),
+    path('movimento-diario-contas-a-pagar', MovimentodoDiaList.as_view(), name='list_movimento_do_dia'),
+    path('editar-movimento-diario-contas-a-pagar/<int:pk>/', MovimentodoDiaEdit.as_view(), name='edit_movimento_do_dia'),
+    path('enviar-mov-do-dia-contas-a-pagar/<int:pk>', MovimentodoDiaEvolucao.as_view(), name='enviar_movimento_contas'),
+    path('retornar-status-mov-do-dia-contas-a-pagar/<int:pk>', MovimentodoDiaRetornar.as_view(), name='retornar_movimento_contas'),
+    path('baixar-status-mov-do-dia-contas-a-pagar/<int:pk>', MovimentodoDiaBaixar.as_view(), name='baixar_movimento_contas'),
+    path('incluir-comprovante-mov-do-dia-contas-a-pagar/<int:pk>', IncluirComprovante.as_view(), name='incluir_comprovante_movimento_contas'),
 
 ]

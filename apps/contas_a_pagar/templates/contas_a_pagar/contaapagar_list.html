@@ -41,7 +41,7 @@
                     <td><a class="btn btn-danger btn-sm js-delete-book" href="{% url 'delete_contas_a_pagar' contasapagar.id %}" role="button">Delete</a></td>
                     <td><a class="btn btn-info btn-sm js-delete-book" href="{% url 'enviar_contas_a_pagar_aprovacao' contasapagar.id %}" role="button">Enviar Aprovação</a></td>
                 {% elif contasapagar.status_contas_a_pagar == 'AP' %}
-                    <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'anexar_boleto_contas_a_receber' contasapagar.id %}" role="button">Anexar</a></td>
+                    <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'anexar_boleto_contas_a_receber' contasapagar.id %}" role="button">Add. Info</a></td>
                     <td><a class="btn btn-light" href="" role="button"></a></td>
                     <td><a class="btn btn-info btn-sm js-delete-book" href="{% url 'enviar_pagamento_contas_a_receber' contasapagar.id %}" role="button">Enviar Pagamento</a></td>
                 {% else %}

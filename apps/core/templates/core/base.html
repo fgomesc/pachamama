@@ -44,6 +44,7 @@
                     <a class="dropdown-item" href="{% url 'list_natureza' %}">Natureza Orçamentária</a>
                     <a class="dropdown-item" href="{% url 'list_perfil' %}">Perfi</a>
                     <a class="dropdown-item" href="{% url 'list_permissao' %}">Permissão</a>
+                    <a class="dropdown-item" href="{% url 'list_produto' %}">Produto</a>
                   </div>
                 </div>
                 <div class="dropdown">
@@ -120,7 +121,6 @@
       </div>
     </main>
 
-    {{ user.usuario.primeiro_nome }} {{ user.usuario.ultimo_nome }} {{ perms.global_permissions }}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

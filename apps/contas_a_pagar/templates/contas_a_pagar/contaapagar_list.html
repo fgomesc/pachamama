@@ -6,6 +6,9 @@
         <a class="btn btn-info" href="{% url 'create_cadastro_estouro' %}" role="button">Inlcuir</a>
     </p>
     <br>
+    <h3>Filtros</h3>
+    <br>
+    <br>
     <h3>Lançamentos</h3>
     <br>
      <table class="table" id="book-table">
@@ -18,6 +21,7 @@
             <th>Correspondente</th>
             <th>Fornecedor</th>
             <th>Valor</th>
+            <th>Vencimento</th>
             <th>Status</th>
             <th>Editar</th>
             <th>Deletar</th>
@@ -35,6 +39,7 @@
               <td>{{ contasapagar.correspondente_contas_a_pagar }}</td>
               <td>{{ contasapagar.fornecedor_contas_a_pagar }}</td>
               <td>{{ contasapagar.valor_contas_a_pagar }}</td>
+              <td>{{ contasapagar.data_pagamento_contas_a_pagar }}</td>
               <td>{{ contasapagar.status_contas_a_pagar }}</td>
               {% if contasapagar.status_contas_a_pagar == 'C' %}
                     <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_contas_a_pagar' contasapagar.id %}" role="button">Edit</a></td>

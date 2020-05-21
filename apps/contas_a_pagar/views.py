@@ -10,6 +10,7 @@ from apps.usuario.models import Usuario
 
 
 
+
 """ <<<<<< Contas a Pagar - Cadastro
 
 Criando Lançamento de contas a pagar
@@ -22,6 +23,7 @@ Parte aonde o usuário lançador ira criar os lançamentos de contas a pagar
 
 class ContasAPagarList(LoginRequiredMixin, ListView):
     model = ContaAPagar
+
 
     def get_queryset(self):
         print(self.request.user.pk)

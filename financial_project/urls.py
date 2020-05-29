@@ -20,5 +20,6 @@ urlpatterns = [
     path('movimento-dia/', include('apps.mov_dia.urls')),
     path('contas-a-pagar/', include('apps.contas_a_pagar.urls')),
     path('produto/', include('apps.produto.urls')),
+    path('estoque/', include('apps.estoque.urls')),
     path('', include('apps.core.urls')),
 ]

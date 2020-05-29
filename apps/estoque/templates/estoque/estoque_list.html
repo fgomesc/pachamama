@@ -1,10 +1,10 @@
 {% extends "core/base.html" %}
 {% block content %}
 
-    <h2>Cadastro - Produto</h2>
+    <h2>Estoque Entrada</h2>
     <br>
     <p>
-        <a class="btn btn-info" href="{% url 'create_produto' %}" role="button">Criar Permissão</a>
+        <a class="btn btn-info" href="" role="button">Incluir Entrada</a>
         {% for message in messages %}
           {% if 'success' in message.tags %}
             <p class="alert alert-success" role="alert"><span style="font-weight: bold">{{ message }}</span></p>
@@ -38,23 +38,23 @@
      <table class="table" id="book-table">
         <thead>
           <tr>
-            <th>NCM</th>
-            <th>Produto</th>
-            <th>Preço</th>
-            <th>Estoque</th>
-            <th>Estoque Minimo</th>
+            <th>Item</th>
+            <th>NF</th>
+            <th>Data</th>
+            <th>Funcionário</th>
             <th>Edit</th>
           </tr>
         </thead>
         <tbody>
-        {% for produto in object_list %}
+        {% for estoque in object_list %}
           <tr>
-            <td>{{ produto.ncm }}</td>
-            <td class="text-center">{{ produto.produto }}</td>
-            <td>R$ <span class="pull-right">{{ produto.preco }}</span></td>
-            <td class="text-center">{{ produto.estoque }}</td>
-            <td class="text-center">{{ produto.estoque_minimo }}</td>
-            <td><a class="btn btn-warning btn-sm js-update-book" href="{% url 'edit_produto' produto.id %}" role="button">Edit</a>
+            <td>
+                <a href="{% url 'estoque_detail' estoque.pk %}">{{ estoque }}</a>
+            </td>
+            <td class="text-center">{{ estoque.nf_formated }}</td>
+            <td><span class="pull-right">{{ estoque.created }}</span></td>
+            <td class="text-center">{{ estoque.funcionario }}</td>
+            <td><a class="btn btn-warning btn-sm js-update-book" href="" role="button">Edit</a>
           </tr>
         {% endfor %}
         </tbody>

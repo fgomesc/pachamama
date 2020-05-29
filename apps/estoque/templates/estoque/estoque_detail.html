@@ -1,0 +1,61 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+{% if estoque.movimento == 'e' %}
+  <a href="{% url 'list_estoque' %}">Voltar</a>
+{% else %}
+  <a href="{% url 'list_estoque' %}">Voltar</a>
+{% endif %}
+
+
+<div class="col-sm-6">
+  <table class="table table-user-information">
+    <tbody>
+
+      <tr>
+        {% if estoque.movimento == 'e' %}
+          <th class="text-right">Status</th>
+          <td>Entrada: {{ estoque }}</td>
+        {% else %}
+          <th class="text-right">Status</th>
+          <td>Saída: {{ estoque }}</td>
+        {% endif %}
+      </tr>
+
+      <tr>
+        <th class="text-right">NF</th>
+        <td>{{ estoque.nf_formated }}</td>
+      </tr>
+      <tr>
+        <th class="text-right">Data</th>
+        <td>{{ estoque.created }}</td>
+      </tr>
+      <tr>
+        <th class="text-right">Funcionário</th>
+        <td>{{ estoque.funcionario }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Produto</th>
+      <th>Quantidade</th>
+      <th>Saldo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for estoque in estoque.estoques.all %}
+      <tr>
+        <td>{{ estoque.produto }}</td>
+        <td>{{ estoque.quantidade }}</td>
+        <td>{{ estoque.saldo }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

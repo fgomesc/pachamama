@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'apps.contas_a_pagar',
     'apps.mov_dia',
     'apps.produto',
+    'apps.estoque',
     'crispy_forms',
     'global_permissions',
 

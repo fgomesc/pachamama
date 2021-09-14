@@ -21,7 +21,7 @@ from .views import \
     MovimentodoDiaEvolucao, \
     MovimentodoDiaRetornar, \
     MovimentodoDiaBaixar, \
-    IncluirComprovante
+    CancelarBaixa
 
 
 
@@ -47,6 +47,6 @@ urlpatterns = [
     path('enviar-mov-do-dia-contas-a-pagar/<int:pk>', MovimentodoDiaEvolucao.as_view(), name='enviar_movimento_contas'),
     path('retornar-status-mov-do-dia-contas-a-pagar/<int:pk>', MovimentodoDiaRetornar.as_view(), name='retornar_movimento_contas'),
     path('baixar-status-mov-do-dia-contas-a-pagar/<int:pk>', MovimentodoDiaBaixar.as_view(), name='baixar_movimento_contas'),
-    path('incluir-comprovante-mov-do-dia-contas-a-pagar/<int:pk>', IncluirComprovante.as_view(), name='incluir_comprovante_movimento_contas'),
+    path('cancelar-baixa-mov-do-dia-contas-a-pagar/<int:pk>', CancelarBaixa.as_view(), name='cancelar_baixa'),
 
 ]

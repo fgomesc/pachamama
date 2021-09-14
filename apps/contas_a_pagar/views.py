@@ -93,7 +93,7 @@ class AprovarContasAParagarList1(LoginRequiredMixin, ListView):
 
 
 class AprovarContasAPagar1(PermissionRequiredMixin, View):
-    permission_required = 'global_permissions.aprovacao1_estouro_orcamento'
+    permission_required = 'global_permissions.aprovacao1_contas_a_pagar'
 
     def get(self, *args, **kwargs):
         status_contasapagarap1 = ContaAPagar.objects.get(id=kwargs['pk'])
@@ -104,7 +104,7 @@ class AprovarContasAPagar1(PermissionRequiredMixin, View):
 
 
 class RecusarContaAPagar1(PermissionRequiredMixin, View):
-    permission_required = 'global_permissions.aprovacao1_estouro_orcamento'
+    permission_required = 'global_permissions.aprovacao1_contas_a_pagar'
 
     def get(self, *args, **kwargs):
         status_contasapagarap1 = ContaAPagar.objects.get(id=kwargs['pk'])
@@ -135,7 +135,7 @@ class AprovarContasAParagarList2(LoginRequiredMixin, ListView):
 
 
 class AprovarContasAPagar2(PermissionRequiredMixin, View):
-    permission_required = 'global_permissions.aprovacao2_estouro_orcamento'
+    permission_required = 'global_permissions.aprovacao2_contas_a_pagar'
 
     def get(self, *args, **kwargs):
         status_contasapagarap1 = ContaAPagar.objects.get(id=kwargs['pk'])
@@ -146,7 +146,7 @@ class AprovarContasAPagar2(PermissionRequiredMixin, View):
 
 
 class RecusarContaAPagar2(PermissionRequiredMixin, View):
-    permission_required = 'global_permissions.aprovacao2_estouro_orcamento'
+    permission_required = 'global_permissions.aprovacao2_contas_a_pagar'
 
     def get(self, *args, **kwargs):
         status_contasapagarap1 = ContaAPagar.objects.get(id=kwargs['pk'])
@@ -168,10 +168,7 @@ Parte aonde o lançador envia o lançamnto para o financeiro realizar o pagament
 
 class EnviarParaPagamentoContasAPagarEdit(PermissionRequiredMixin, UpdateView):
     model = ContaAPagar
-    fields = ['anexo_boleto_contas_a_pagar',
-              'banco_beneficiario_contas_a_pagar',
-              'ag_beneficiario_contas_a_pagar',
-              'cc_beneficiario_contas_a_pagar']
+    fields = ['anexo_boleto_contas_a_pagar']
     permission_required = 'global_permissions.cadastro_contas_a_pagar'
 
 
@@ -180,7 +177,7 @@ class EnviarPgamento(PermissionRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         status_contasapagarap1 = ContaAPagar.objects.get(id=kwargs['pk'])
-        status_contasapagarap1.status_contas_a_pagar = 'EF'
+        status_contasapagarap1.status_contas_a_pagar = 'EFF'
         status_contasapagarap1.save()
 
         return HttpResponseRedirect(reverse_lazy('list_contas_a_pagar'))
@@ -300,8 +297,12 @@ class MovimentodoDiaBaixar(PermissionRequiredMixin, View):
         return HttpResponseRedirect(reverse_lazy('list_movimento_do_dia'))
 
 
-class IncluirComprovante(PermissionRequiredMixin, UpdateView):
-    model = ContaAPagar
-    fields = ['anexo_comprovante_contas_a_pagar']
+class CancelarBaixa(PermissionRequiredMixin, UpdateView):
     permission_required = 'global_permissions.cadastro_contas_a_pagar'
-    success_url = reverse_lazy('list_movimento_do_dia')
+
+    def get(self, *args, **kwargs):
+        status_contasapagarap1 = ContaAPagar.objects.get(id=kwargs['pk'])
+        status_contasapagarap1.status_contas_a_pagar = 'EFF'
+        status_contasapagarap1.save()
+
+        return HttpResponseRedirect(reverse_lazy('list_movimento_do_dia'))

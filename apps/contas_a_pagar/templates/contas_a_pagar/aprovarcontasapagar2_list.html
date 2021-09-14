@@ -9,15 +9,13 @@
         <thead>
           <tr>
             <th>Id.</th>
-            <th>Cliente</th>
-            <th>Caso</th>
+            <th>Centro de Custo</th>
             <th>Natureza Orçamentária</th>
-            <th>Correspondente</th>
-            <th>Fornecedor</th>
             <th>Valor</th>
+            <th>Data Pagamento</th>
             <th>Status</th>
-            <th>Aprovar</th>
-            <th>Recusar</th>
+            <th>Editar</th>
+            <th>Mudar Status</th>
 
           </tr>
         </thead>
@@ -26,11 +24,9 @@
             <tr>
               <td>{{ contasapagar.id }}</td>
               <td>{{ contasapagar.cliente_contas_a_pagar }}</td>
-              <td>{{ contasapagar.caso_contas_a_pagar }}</td>
               <td>{{ contasapagar.natureza_contas_a_pagar }}</td>
-              <td>{{ contasapagar.correspondente_contas_a_pagar }}</td>
-              <td>{{ contasapagar.fornecedor_contas_a_pagar }}</td>
               <td>{{ contasapagar.valor_contas_a_pagar }}</td>
+              <td>{{ contasapagar.data_pagamento_contas_a_pagar }}</td>
               <td>{{ contasapagar.status_contas_a_pagar }}</td>
               {% if contasapagar.status_contas_a_pagar == 'A2' %}
                     <td><a class="btn btn-info btn-sm js-update-book" href="{% url 'aprovar_contas_a_pagar2' contasapagar.id %}" role="button">Aprovar</a>

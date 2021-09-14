@@ -12,17 +12,14 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'core/main.css' %}">
 
-    {% if user.is_authenticated %}
-        <title>Financial System - {{ user.usuario.primeiro_nome }}</title>
-    {% else %}
-        <title>Financial System</title>
-    {% endif %}
+
+    <title>Sistema de Compras Pachamama</title>
 </head>
 <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="{% url 'home' %}">Financial System</a>
+          <a class="navbar-brand mr-4" href="{% url 'home' %}">Sistema de Compras Pachamama</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
           </button>
@@ -39,14 +36,14 @@
 
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="{% url 'list_usuario' %}">Usuário</a>
-                    <a class="dropdown-item" href="{% url 'list_cliente' %}">Cliente</a>
+                    <!-- <a class="dropdown-item" href="{% url 'list_cliente' %}">Cliente</a> --!>
                     <a class="dropdown-item" href="{% url 'list_centrodecusto' %}">Centro de Custo</a>
                     <a class="dropdown-item" href="{% url 'list_natureza' %}">Natureza Orçamentária</a>
                     <a class="dropdown-item" href="{% url 'list_perfil' %}">Perfi</a>
                     <a class="dropdown-item" href="{% url 'list_permissao' %}">Permissão</a>
-                    <a class="dropdown-item" href="{% url 'list_produto' %}">Produto</a>
+                    <!-- <a class="dropdown-item" href="{% url 'list_produto' %}">Produto</a> --!>
                   </div>
-                </div>
+                <!--</div>
                 <div class="dropdown">
                   <a class="nav-item nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Estoque
@@ -54,8 +51,8 @@
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="{% url 'list_estoque' %}">Entrada Estoque</a>
                     <a class="dropdown-item" href="">Saída de Estoque</a>
-                  </div>
-                </div>
+                  </div> --!>
+                <!-- </div>
                 <div class="dropdown">
                   <a class="nav-item nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Orçamento
@@ -64,7 +61,7 @@
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="{% url 'list_orcamentoglobal' %}">Cadastro de Orçamento</a>
                     <a class="dropdown-item" href="">Visualizar Orçamento</a>
-                  </div>
+                  </div> --!>
                 </div>
                 <div class="dropdown">
                   <a class="nav-item nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -73,8 +70,8 @@
 
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="{% url 'list_contas_a_pagar'%}">Lançamento</a>
-                    <a class="dropdown-item" href="{% url 'list_evolucao_fiscal' %}">Fiscal</a>
-                    <a class="dropdown-item" href="{% url 'list_cadastro_estouro' %}">Estouro de Orçamento</a>
+                    <!-- <a class="dropdown-item" href="{% url 'list_evolucao_fiscal' %}">Fiscal</a> --!>
+                    <!-- <a class="dropdown-item" href="{% url 'list_cadastro_estouro' %}">Estouro de Orçamento</a> --!>
                     <a class="dropdown-item" href="{% url 'list_movimento_do_dia' %}">Movimento do Dia</a>
                   </div>
                 </div>
@@ -107,7 +104,7 @@
               <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
              {% else %}
               <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-              <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+              <!--<a class="nav-item nav-link" href="{% url 'register' %}">Register</a> --!>
             {% endif %}
             </div>
           </div>

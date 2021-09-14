@@ -13,9 +13,8 @@ class CadastroContasAPagarForm(ModelForm):
     class Meta:
         model = ContaAPagar
         fields = ['cliente_contas_a_pagar',
-                  'caso_contas_a_pagar',
-                  'data_pagamento_contas_a_pagar',
                   'natureza_contas_a_pagar',
-                  'correspondente_contas_a_pagar',
-                  'historico_contas_a_pagar',
-                  'valor_contas_a_pagar']
+                  'valor_contas_a_pagar',
+                  'tipo_de_pagamento']
+
+

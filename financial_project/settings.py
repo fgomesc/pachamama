@@ -10,8 +10,6 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
-
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -20,20 +18,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'apps.core',
-    'apps.users',
-    'apps.usuario',
-    'apps.cliente',
-    'apps.centro_de_custo',
-    'apps.natureza_orcamentaria',
-    'apps.perfil',
-    'apps.permissao',
-    'apps.cadastro_orcamento',
-    'apps.estouro_orcamento',
-    'apps.contas_a_pagar',
-    'apps.mov_dia',
-    'apps.produto',
-    'apps.estoque',
+    'financial_project.core',
+    'financial_project.users',
+    'financial_project.usuario',
+    'financial_project.cliente',
+    'financial_project.centro_de_custo',
+    'financial_project.natureza_orcamentaria',
+    'financial_project.perfil',
+    'financial_project.permissao',
+    'financial_project.cadastro_orcamento',
+    'financial_project.estouro_orcamento',
+    'financial_project.contas_a_pagar',
+    'financial_project.mov_dia',
+    'financial_project.produto',
+    'financial_project.estoque',
     'crispy_forms',
     'global_permissions',
 
@@ -51,10 +49,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'financial_project.urls'
 
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(SETTINGS_PATH, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,7 +79,6 @@ DATABASES = {
     }
 }
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -95,7 +93,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 LANGUAGE_CODE = 'en-us'
 

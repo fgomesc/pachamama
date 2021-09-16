@@ -1,1 +1,1 @@
-web: gunicorn csc_system.wsgi
+web: gunicorn apps.wsgi --log-file -

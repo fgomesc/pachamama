@@ -1,5 +1,6 @@
 import os
 from decouple import config
+from dj_database_url import parse as dburl
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -7,7 +8,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', defaul=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -68,6 +69,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'financial_project.wsgi.application'
 
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+
+default: config('DATABASE_URL', default=default_dburl, cast=dburl)
 
 DATABASES = {
     'default': {
@@ -110,3 +114,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'home'
 
 LOGIN_URL = 'login'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
